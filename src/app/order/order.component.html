@@ -3,12 +3,54 @@
 
 <section class="content">
   <section class="invoice">
-    <form #form="ngForm" novalidate>
+    <form [formGroup]="orderForm" novalidate>
       <div class="row">
         <div class="col-xs-12">
           <h2 class="page-header">
             <i class="fa fa-shopping-cart"></i> Finalize o seu pedido
           </h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <p class="lead">Seus Dados:</p>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+          <mt-input-container
+            label="Nome"
+            errorMessage="Campo obrigatório e com 5 caracteres"
+          >
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Endereço"
+              formControlName="name"
+              autocomplete="off"
+              minlength="5"
+          /></mt-input-container>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          <mt-input-container label="Email" errorMessage="E-mail inválido">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Email"
+              formControlName="email"
+              autocomplete="off"
+              minlength="5"
+          /></mt-input-container>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          <mt-input-container label="Email" errorMessage="E-mail inválido">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Confirmação do e-mail"
+              formControlName="emailConfirmation"
+              autocomplete="off"
+              minlength="5"
+          /></mt-input-container>
         </div>
       </div>
 
@@ -22,10 +64,8 @@
               type="text"
               class="form-control"
               placeholder="Endereço"
-              name="address"
+              formControlName="address"
               autocomplete="off"
-              required
-              ngModel
               minlength="5"
           /></mt-input-container>
         </div>
@@ -39,10 +79,8 @@
               class="form-control"
               placeholder="Número"
               pattern="^[0-9]*$"
-              name="number"
+              formControlName="number"
               autocomplete="off"
-              required
-              ngModel
             />
           </mt-input-container>
         </div>
@@ -55,10 +93,9 @@
               type="text"
               class="form-control"
               id="inputSuccess"
+              formControlName="optionalAddress"
               placeholder="Complemento"
-              name="optional"
               autocomplete="off"
-              ngModel
             />
           </div>
         </div>
@@ -87,9 +124,7 @@
           <div class="form-group">
             <mt-radio
               [options]="paymentOptions"
-              name="paymentOption"
-              ngModel
-              required
+              formControlName="paymentOption"
             ></mt-radio>
           </div>
         </div>
@@ -109,10 +144,12 @@
     <div class="row">
       <div class="col-xs-12">
         <button
-          [disabled]="!form.valid || !cartItems().length"
+          (click)="checkOrder(orderForm.value)"
+          [disabled]="!orderForm.valid || !cartItems().length"
           class="btn btn-success pull-right"
         >
-          <i class="fa fa-credit-card"></i> Concluir Pedido
+          <i class="fa fa-credit-card"></i>
+          Concluir Pedido
         </button>
       </div>
     </div>
