@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { LOCALE_ID, NgModule } from "@angular/core";
-import { HttpModule } from "@angular/http";
+import { HttpClientModule } from "@angular/common/http";
 import { PreloadAllModules, RouterModule } from "@angular/router";
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
@@ -34,7 +34,7 @@ import { NotFoundComponent } from "./not-found/not-found.component";
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     SharedModule.forRoot(),
     RouterModule.forRoot(ROUTES, { preloadingStrategy: PreloadAllModules }),
